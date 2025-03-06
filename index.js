@@ -5,6 +5,8 @@ const firebaseConfig = {
     databaseURL: "https://leads-tracker-app-ad4b6-default-rtdb.firebaseio.com/"
 }
 
+const app = initializeApp(firebaseConfig)
+const database = getDatabase(app)
 
 let myLeads = []
 const inputEl = document.getElementById("input-el")

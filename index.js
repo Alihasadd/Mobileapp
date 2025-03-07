@@ -1,35 +1,23 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-import { getDatabase } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js"
+import { getDatabase } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js"
 
 const firebaseConfig = {
-    databaseURL: "https://leads-tracker-app-ad4b6-default-rtdb.firebaseio.com"
+    databaseURL: process.env.DATABASE_URL
 }
 
 const app = initializeApp(firebaseConfig)
 const database = getDatabase(app)
 
-console.log(firebaseConfig.databaseURL)
+// Challenge: Delete all of the localStorage code
 
 let myLeads = []
 const inputEl = document.getElementById("input-el")
 const inputBtn = document.getElementById("input-btn")
 const ulEl = document.getElementById("ul-el")
 const deleteBtn = document.getElementById("delete-btn")
-const leadsFromLocalStorage = JSON.parse( localStorage.getItem("myLeads") )
-// const tabBtn = document.getElementById("tab-btn")
 
-if (leadsFromLocalStorage) {
-    myLeads = leadsFromLocalStorage
-    render(myLeads)
-}
 
-// tabBtn.addEventListener("click", function(){    
-//     chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
-//         myLeads.push(tabs[0].url)
-//         localStorage.setItem("myLeads", JSON.stringify(myLeads) )
-//         render(myLeads)
-//     })
-})
+
 
 function render(leads) {
     let listItems = ""
@@ -46,7 +34,6 @@ function render(leads) {
 }
 
 deleteBtn.addEventListener("dblclick", function() {
-    localStorage.clear()
     myLeads = []
     render(myLeads)
 })
@@ -54,6 +41,5 @@ deleteBtn.addEventListener("dblclick", function() {
 inputBtn.addEventListener("click", function() {
     myLeads.push(inputEl.value)
     inputEl.value = ""
-    localStorage.setItem("myLeads", JSON.stringify(myLeads) )
     render(myLeads)
 })

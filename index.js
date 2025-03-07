@@ -1,5 +1,5 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js"
-import { getDatabase } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js"
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+import { getDatabase } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
 
 const firebaseConfig = {
     databaseURL: process.env.DATABASE_URL
@@ -8,16 +8,19 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig)
 const database = getDatabase(app)
 
-// Challenge: Delete all of the localStorage code
+console.log(firebaseConfig.databaseURL)
 
-let myLeads = []
 const inputEl = document.getElementById("input-el")
 const inputBtn = document.getElementById("input-btn")
 const ulEl = document.getElementById("ul-el")
 const deleteBtn = document.getElementById("delete-btn")
+const leadsFromLocalStorage = JSON.parse( localStorage.getItem("myLeads") )
+const tabBtn = document.getElementById("tab-btn")
 
-
-
+if (leadsFromLocalStorage) {
+    myLeads = leadsFromLocalStorage
+    render(myLeads)
+}
 
 function render(leads) {
     let listItems = ""
@@ -34,12 +37,11 @@ function render(leads) {
 }
 
 deleteBtn.addEventListener("dblclick", function() {
-    myLeads = []
-    render(myLeads)
+
+    
 })
 
 inputBtn.addEventListener("click", function() {
-    myLeads.push(inputEl.value)
+    console.log(inputEl.value)
     inputEl.value = ""
-    render(myLeads)
 })
